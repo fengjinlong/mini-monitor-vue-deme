@@ -1,8 +1,30 @@
-# Vue 3 + Vite
+# Welcome to mini-monitor-vue-demo 👋
+![Version](https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000)
+[![Documentation](https://img.shields.io/badge/documentation-yes-brightgreen.svg)](https://github.com/fengjinlong/mini-monitor-vue-deme)
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+> 测试 monitor npm 端，服务端的客户端项目
 
-## Recommended IDE Setup
+### 🏠 [Homepage](https://github.com/fengjinlong/mini-monitor-vue-deme)
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
-# mini-monitor-vue-deme
+### ✨ [Demo](https://github.com/fengjinlong/mini-monitor-vue-deme)
+
+## Install
+
+```sh
+npm install
+```
+
+## Author
+
+👤 **fjl**
+
+* Website: https://github.com/fengjinlong/mini-monitor-vue-deme
+* Github: [@fengjinlong](https://github.com/fengjinlong)
+
+## Show your support
+
+Give a ⭐️ if this project helped you!
+
+
+***
+_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
