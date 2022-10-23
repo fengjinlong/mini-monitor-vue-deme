@@ -9,5 +9,14 @@ setTimeout(() => {
 
 <template>
   <img src="./404.png" alt="" />
-  <p>404</p>
+  <p class="p">404</p>
+  <p class="pp">404</p>
 </template>
+<style scoped>
+.p {
+  color: red;
+}
+.pp {
+  color: yellowgreen;
+}
+</style>

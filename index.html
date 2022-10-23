@@ -9,7 +9,27 @@
   <body>
     <div id="app"></div>
     <script type="module" src="/src/main.js"></script>
-
+    <script>
+      const observer = new PerformanceObserver((list) => {
+        for (const entry of list.getEntries()) {
+          console.groupCollapsed(entry.name);
+          console.log(entry.entryType);
+          console.log(entry.startTime);
+          console.log(entry.duration);
+          console.groupEnd(entry.name);
+        }
+      });
+      observer.observe({
+        entryTypes: [
+          "longtask",
+          "frame",
+          "navigation",
+          "resource",
+          "mark",
+          "measure",
+          "paint",
+        ],
+      });
     </script>
   </body>
 </html>
