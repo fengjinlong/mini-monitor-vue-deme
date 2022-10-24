@@ -13,7 +13,7 @@
     "axios": "^1.1.3",
     "element-plus": "^2.2.19",
     "fmp-tti": "^1.1.4",
-    "mini-monitor-npm": "^1.1.7",
+    "mini-monitor-npm": "^1.1.8",
     "stacktracey": "^2.1.8",
     "vue": "^3.2.37"
   },

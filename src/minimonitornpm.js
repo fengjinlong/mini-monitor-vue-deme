@@ -1,6 +1,7 @@
 import FT from "fmp-tti";
 let id = 0;
-
+let URL = "http://139.155.69.214:8083";
+// let URL = "http://127.0.0.1:8083";
 const minimonitornpm = {
   install: function (Vue) {
     const indicators = {};
@@ -21,11 +22,14 @@ const minimonitornpm = {
     indicators.requestPending = responseStart - requestStart;
     indicators.documentDown = responseEnd - responseStart;
     indicators.onload = loadEventEnd - loadEventStart;
+    indicators.whiteScreen = responseStart - navigationStart;
     indicators.jsmemoey =
-      (
-        performance.memory.usedJSHeapSize / performance.memory.totalJSHeapSize
-      ).toFixed(4) *
-        100 +
+      Math.floor(
+        (performance.memory.usedJSHeapSize /
+          performance.memory.totalJSHeapSize) *
+          1000
+      ) /
+        10 +
       "%";
     // console.log("dns 解析时间", domainLookupEnd - domainLookupStart);
     // console.log("TCP建立连接时间", connectEnd - connectStart);
@@ -152,8 +156,7 @@ const minimonitornpm = {
     });
   },
 };
-let URL = "http://139.155.69.214:8083";
-// let URL = "http://127.0.0.1:8083";
+
 function add(data) {
   if (!data.id) return;
 
