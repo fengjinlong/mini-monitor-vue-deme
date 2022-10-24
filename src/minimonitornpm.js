@@ -1,12 +1,9 @@
 import FT from "fmp-tti";
 let id = 0;
+
 const minimonitornpm = {
   install: function (Vue) {
-    FT.then(({ fcp, fmp, tti }) => {
-      console.log("首次内容绘制（FCP） - %dms", fcp);
-      console.log("首次有意义绘制（FMP） - %dms", fmp);
-      console.log("可交互时间（TTI） - %dms", tti);
-    });
+    const indicators = {};
     let {
       domainLookupEnd,
       domainLookupStart,
@@ -19,6 +16,17 @@ const minimonitornpm = {
       loadEventStart,
       loadEventEnd,
     } = performance.timing;
+    indicators.dns = domainLookupEnd - domainLookupStart;
+    indicators.tcp = connectEnd - connectStart;
+    indicators.requestPending = responseStart - requestStart;
+    indicators.documentDown = responseEnd - responseStart;
+    indicators.onload = loadEventEnd - loadEventStart;
+    indicators.jsmemoey =
+      (
+        performance.memory.usedJSHeapSize / performance.memory.totalJSHeapSize
+      ).toFixed(4) *
+        100 +
+      "%";
     // console.log("dns 解析时间", domainLookupEnd - domainLookupStart);
     // console.log("TCP建立连接时间", connectEnd - connectStart);
     // console.log("请求等待时间", responseStart - requestStart);
@@ -36,6 +44,22 @@ const minimonitornpm = {
     //     100 +
     //     "%"
     // );
+
+    FT.then(({ fcp, fmp, tti }) => {
+      indicators.fcp = fcp;
+      indicators.fmp = fmp;
+      indicators.tti = tti;
+      // console.log("首次内容绘制（FCP） - %dms", fcp);
+      // console.log("首次有意义绘制（FMP） - %dms", fmp);
+      // console.log("可交互时间（TTI） - %dms", tti);
+      const syncRequest = (url, data = {}) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", url, false);
+        xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
+        xhr.send(JSON.stringify(data));
+      };
+      syncRequest(URL + "/saveIndicators", indicators);
+    });
 
     // 捕获 异步 错误
     window.onerror = function (msg, url, row, col, error) {

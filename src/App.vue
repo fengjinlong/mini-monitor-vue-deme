@@ -1,4 +1,5 @@
 <script setup>
+import { getIndicators } from "./request/api";
 import HelloWorld from "./components/HelloWorld.vue";
 import Img404 from "./components/Img404.vue";
 import PromiseReject from "./components/PromiseReject.vue";
@@ -20,7 +21,9 @@ const d = () => {
   setCssVar("--theme-color", "#fff");
   setCssVar("--theme-background", "black");
 };
-// setCssVar("--theme-color", color);
+const getIndicatorsBtn = () => {
+  getIndicators().then((res) => console.log("res", res));
+};
 </script>
 
 <template>
@@ -33,6 +36,7 @@ const d = () => {
     <AxiosErr />
     <SetTimeou />
     <!-- 改变 UI 组件库 -->
+    <button @click="getIndicatorsBtn">getIndicators</button>
     <Btn />
   </div>
 </template>

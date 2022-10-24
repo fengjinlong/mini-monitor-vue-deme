@@ -16,6 +16,13 @@ export function findAll(params) {
     params,
   });
 }
+export function getIndicators(params) {
+  return request({
+    url: "/getIndicators",
+    method: "GET",
+    params,
+  });
+}
 export function del(params) {
   return request({
     url: "/delAll",
