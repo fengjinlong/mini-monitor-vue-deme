@@ -1,9 +1,53 @@
+import FT from "fmp-tti";
 let id = 0;
-const M = {
+const minimonitornpm = {
   install: function (Vue) {
+    FT.then(({ fcp, fmp, tti }) => {
+      console.log("首次内容绘制（FCP） - %dms", fcp);
+      console.log("首次有意义绘制（FMP） - %dms", fmp);
+      console.log("可交互时间（TTI） - %dms", tti);
+    });
+    let {
+      domainLookupEnd,
+      domainLookupStart,
+      connectEnd,
+      connectStart,
+      requestStart,
+      responseEnd,
+      responseStart,
+      navigationStart,
+      loadEventStart,
+      loadEventEnd,
+    } = performance.timing;
+    // console.log("dns 解析时间", domainLookupEnd - domainLookupStart);
+    // console.log("TCP建立连接时间", connectEnd - connectStart);
+    // console.log("请求等待时间", responseStart - requestStart);
+    // console.log("文档下载时间", responseEnd - responseStart);
+    // console.log(
+    //   "onload页面加载完成时间（所有的资源都解析完了）",
+    //   loadEventEnd - loadEventStart
+    // );
+    // console.log("页面白屏时间", responseStart - navigationStart);
+    // console.log(
+    //   "js内存使用占比",
+    //   (
+    //     performance.memory.usedJSHeapSize / performance.memory.totalJSHeapSize
+    //   ).toFixed(4) *
+    //     100 +
+    //     "%"
+    // );
+
     // 捕获 异步 错误
     window.onerror = function (msg, url, row, col, error) {
-      console.log("w2", typeof url);
+      // console.log(msg, url, row, col, error);
+      // var reportMsg = {
+      //   msg: msg,
+      //   url: url,
+      //   row,
+      //   col,
+      // }; // 错误信息
+      // report(reportMsg);
+      // console.log("w2", typeof url);
       let path = url.replace(/(\.)|(=)/g, "-");
       let e = {
         id: ++id,
@@ -12,7 +56,6 @@ const M = {
         msg: error.toString(),
         path,
       };
-      console.log("e", e);
       add(e);
       return true;
     };
@@ -24,19 +67,7 @@ const M = {
         msg: err.toString(),
       };
       add(e);
-      // console.log(err.toString());
-      // console.log(vm);
-      // console.log(info);
-      // console.log("ee", e);
       // {info: 'setup function',href, msg: 'ReferenceError: err is not defined'}
-
-      // 错误信息
-      // const data = {
-      //   message: err.message,
-      //   stack: err.stack,
-      //   info,
-      //   href: location.href
-      // }
     };
 
     // 专门 捕获404 捕获404  但不能去掉红色  报警处理
@@ -68,12 +99,6 @@ const M = {
     );
     // promise reject
     window.addEventListener("unhandledrejection", (event) => {
-      // console.log(event);
-      // console.info(`UNHANDLED PROMISE REJECTION: ${event.reason.name}`);
-      // console.log("pr", JSON.stringify(event));
-      // for (let o in event.reason) {
-      //   console.log("o", o);
-      // }
       let e = {};
       if (event) {
         switch (event.reason.name) {
@@ -103,25 +128,35 @@ const M = {
     });
   },
 };
-const idsPoll = [];
+let URL = "http://139.155.69.214:8083";
+// let URL = "http://127.0.0.1:8083";
 function add(data) {
-  // let id = data.id;
-  console.log("go", data);
   if (!data.id) return;
-  // if (idsPoll.includes(id)) {
-  //   return;
-  // } else {
-  // idsPoll.push(id);
+
   const blob = new Blob([JSON.stringify(data)], {
-    // const blob = new Blob([JSON.stringify(data)], {
     type: "application/x-www-form-urlencoded",
   });
-  navigator.sendBeacon("http://139.155.69.214:8083/add1", blob);
-  // navigator.sendBeacon("http://127.0.0.1:8083/add1", blob);
-  // }
+  navigator.sendBeacon(URL + "/add1", blob);
 }
-export { M };
-export default M;
+
+// function report(paramObj, level) {
+//   let paramArray = [],
+//     paramString = "";
+//   for (let key in paramObj) {
+//     paramArray.push(key + "=" + encodeURIComponent(paramObj[key]));
+//   }
+
+//   const syncRequest = (url, data = {}) => {
+//     const xhr = new XMLHttpRequest();
+//     xhr.open("POST", url, false);
+//     xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
+//     xhr.send(JSON.stringify(data));
+//   };
+//   syncRequest(URL + "/report", paramObj);
+// }
+export { minimonitornpm };
+// export { ERROR };
+export default minimonitornpm;
 
 /**
  * img 404 fetch 发送邮件

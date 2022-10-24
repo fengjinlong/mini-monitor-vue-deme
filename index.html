@@ -12,22 +12,22 @@
     <script>
       const observer = new PerformanceObserver((list) => {
         for (const entry of list.getEntries()) {
-          console.groupCollapsed(entry.name);
-          console.log(entry.entryType);
-          console.log(entry.startTime);
-          console.log(entry.duration);
-          console.groupEnd(entry.name);
+          // console.groupCollapsed(entry.name);
+          // console.log(entry.entryType);
+          // console.log(entry.startTime);
+          // console.log(entry.duration);
+          // console.log(entry);
         }
       });
       observer.observe({
         entryTypes: [
+          // 长任务
           "longtask",
-          "frame",
-          "navigation",
-          "resource",
-          "mark",
-          "measure",
-          "paint",
+          // "navigation",
+          // "resource",
+          // "mark",
+          // "measure",
+          // "paint",
         ],
       });
     </script>

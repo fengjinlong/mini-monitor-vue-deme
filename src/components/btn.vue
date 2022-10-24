@@ -1,6 +1,5 @@
 <template>
   <el-button type="success">Success</el-button>
-  <p class="ppp">btn</p>
 </template>
 <style scoped>
 :deep(span) {
